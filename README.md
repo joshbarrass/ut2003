@@ -94,6 +94,8 @@ with
 ViewportManager=SDLDrv.SDLClient
 ```
 
+If you wish to make this change persist for all users when they first run of UT2003, make the same change to the files `~/Games/ut2003/System/UT2003.ini` and `~/Games/ut2003/System/User.ini`.
+
 ## Bad/No Sound
 
 If you get errors like
