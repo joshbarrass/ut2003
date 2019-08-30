@@ -25,7 +25,7 @@ This update script will update UT2003 and install the launcher and the `ucc` too
 chmod +x ut2003_2225beta3-multilanguage.update.run
 linux32 ./ut2003_2225beta3-multilanguage.update.run --target /home/yourUsername/Games/ut2003/
 ```
-Make sure you use an absolute path!
+When asked if you want to read the README, answer n. When prompted to apply the update, answer y. When prompted for the installation path, enter the absolute path to your installation directory (e.g. `/home/yourUsername/Games/ut2003`).
 
 ## Put in Your CD Key
 
