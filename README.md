@@ -16,6 +16,7 @@ You will need the UT2003 Patch 2225.3 for Linux (`ut2003_2225beta3-multilanguage
 
 This update script will update UT2003 and install the launcher and the `ucc` tool required for decompressing the installation CD's acrhives.
 ```
+chmod +x ut2003_2225beta3-multilanguage.update.run
 linux32 ./ut2003_2225beta3-multilanguage.update.run --target /home/yourUsername/Games/ut2003/
 ```
 Make sure you use an absolute path!
