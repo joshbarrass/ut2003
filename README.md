@@ -1,6 +1,8 @@
-Guide to install UT2003
+# Guide to Install UT2003 on Ubuntu
 
-#Install the files
+This guide assumes that you wish to install the game to `~/Games/ut2003`. Modify your commands appropriately if you are installing it elsewhere.
+
+## Copy the Files from the Installation CDs
 ```
 mkdir ~/Games/ut2003
 ...
@@ -8,57 +10,67 @@ sudo mount -o loop CDx.iso /mount/cdrom
 sudo cp -R /mount/cdrom/* ~/Games/ut2003/
 ```
 
-#Run update script
+## Run Update Script
 
-This update script will update ut2003 and install the launcher and the ucc tool
-```
-linux32 ./ut2003_2225beta3-multilanguage.update.run --target /absolute/path/ut2003/
-```
+You will need the UT2003 Patch 2225.3 for Linux (`ut2003_2225beta3-multilanguage.update.run`) for this.
 
-#CD Key
-
-Put your cd key in a file
+This update script will update UT2003 and install the launcher and the `ucc` tool required for decompressing the installation CD's acrhives.
 ```
-echo XXXXX-XXXXX-XXXXX-XXXX >> ut2003/System/cdkey
+linux32 ./ut2003_2225beta3-multilanguage.update.run --target /home/yourUsername/Games/ut2003/
 ```
+Make sure you use an absolute path!
 
-#Decompress .uz2 files
+## Put in Your CD Key
 
-You need to decompress .uz2 files using ucc tool
+Put your CD key in a file
 ```
-for i in ../**/*.uz2 ; do ./ucc-bin decompress $i ; done
+echo XXXXX-XXXXX-XXXXX-XXXX >> ~/Games/ut2003/System/cdkey
 ```
 
-#libstdc++.so.5
+## Decompress .uz2 files
+
+You need to decompress .uz2 files using `ucc`
+```
+cd ~/Games/ut2003/System; for i in ../**/*.uz2 ; do ./ucc-bin decompress $i ; done
+```
+
+## Attempt to Run the Game
+
+```
+cd ~/Games/ut2003/System && ./ut2003-bin
+```
+# Fixing Errors
+## libstdc++.so.5
 
 If you get errors like
 ```
 ./ut2003-bin: error while loading shared libraries: libstdc++.so.5: cannot open shared object file: No such file or directory
 ```
-Install libstdc++5 package
+you need to install the 32-bit version of package `libstdc++5`
 
-##Under 32bits (not tested)
+If you use a 32-bit system (not tested):
 ```
 sudo apt-get install libstdc++5
 ```
-##Under 64bits
+
+or for a 64-bit system:
 ```
 sudo apt-get install libstdc++5:i386
 ```
 
-#Configure Render Device
+## Configure Render Device
 
 If you get errors like
 ```
 Can't find file for package 'WinDrv'
 ```
-In **System/UT2003.ini** and **System/User.ini** replace
+In `~/.ut2003/System/UT2003.ini` and `~/.ut2003/System/User.ini` replace
 ```
 RenderDevice=D3DDrv.D3DRenderDevice
 ;RenderDevice=Engine.NullRenderDevice
 ;RenderDevice=OpenGLDrv.OpenGLRenderDevice
 ```
-by
+with
 ```
 ;RenderDevice=D3DDrv.D3DRenderDevice
 ;RenderDevice=Engine.NullRenderDevice
@@ -69,24 +81,24 @@ and
 ViewportManager=WinDrv.WindowsClient
 ;ViewportManager=SDLDrv.SDLClient
 ```
-by
+with
 ```
 ;ViewportManager=WinDrv.WindowsClient
 ViewportManager=SDLDrv.SDLClient
 ```
 
-#Bad or no sound
+## Bad/No Sound
 
 If you get errors like
 ```
 open /dev/[sound/]dsp: No such file or directory
 ```
-Run the game with **padsp**:
+Run the game with `padsp`:
 ```
 padsp ./ut2003-bin
 ```
 
-#ERROR: ld.so: with padsp
+## ERROR: ld.so: when using padsp
 
 If you are using 64-bit system, you might still get no sound. The startup may show the following error when using padsp:
 ```
@@ -96,21 +108,28 @@ To solve this, install the 32-bit version if not already installed:
 ```
 sudo apt-get install libpulsedsp:i386
 ```
-Then, copy the padsp script to a local (or global) padsp32 file and edit the lines that set the LD_PRELOAD variable to point to the 32-bit version of the library (use the locate command). Example:
+Then, copy the `padsp` script (you can find it using `which padsp`) to a local (or global) file on your PATH called `padsp32`, and edit the lines that set the LD_PRELOAD variable to point to the 32-bit version of the library. These should be near the bottom of the file. You should replace:
 ```
-...
+if [ x"$LD_PRELOAD" = x ] ; then
+   LD_PRELOAD="/usr/lib/x86_64-linux-gnu/pulseaudio/libpulsedsp.so"
+else
+   LD_PRELOAD="$LD_PRELOAD /usr/lib/x86_64-linux-gnu/pulseaudio/libpulsedsp.so"
+fi
+```
+with
+```
 if [ x"$LD_PRELOAD" eq x ] ; then
   LD_PRELOAD="/usr/lib/i386-linux-gnu/pulseaudio/libpulsedsp.so"
 else
   LD_PRELOAD="$LD_PRELOAD /usr/lib/i386-linux-gnu/pulseaudio/libpulsedsp.so"
 fi
-...
 ```
-Run the game with **padsp32**:
+
+Now run the game with `padsp32`:
 ```
 padsp32 ./ut2003-bin
 ```
 
-#Important
+# Configuration
 
-ut2003 creates ~/.ut2003 directory
+UT2003 creates `~/.ut2003` directory to store your per-user config.
