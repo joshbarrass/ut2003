@@ -5,9 +5,15 @@ This guide assumes that you wish to install the game to `~/Games/ut2003`. Modify
 ## Copy the Files from the Installation CDs
 ```
 mkdir ~/Games/ut2003
-...
+
 sudo mount -o loop CDx.iso /mount/cdrom
 sudo cp -R /mount/cdrom/* ~/Games/ut2003/
+```
+Repeat this for all the CDs, then fix the permissions:
+```
+sudo chown --recursive $USER:$USER ~/Games/ut2003
+find ~/Games/ut2003 -type d -print0 | xargs -0 chmod 0775
+find ~/Games/ut2003 -type f -print0 | xargs -0 chmod 0664
 ```
 
 ## Run Update Script
