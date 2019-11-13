@@ -41,6 +41,11 @@ You need to decompress .uz2 files using `ucc`
 cd ~/Games/ut2003/System; for i in ../**/*.uz2 ; do ./ucc-bin decompress $i ; done
 ```
 
+If you want to save some space, it _should_ be possible to delete these files once you've decompressed them, but I have not personally tested this and can't guarantee there will be no problems.
+```
+cd ~/Games/ut2003/System; for i in ../**/*.uz2 ; do rm $i ; done
+```
+
 ## Attempt to Run the Game
 
 ```
