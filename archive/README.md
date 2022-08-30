@@ -5,3 +5,4 @@ This is an archive of any files necessary for this (excluding any that are found
 ## Patch Files ##
 
  * [UT2003 Patch 2225.3 for Linux (ut2003_2225beta3-multilanguage.update.run)](ut2003_2225beta3-multilanguage.update.run) -- Downloaded from [liflg.org](http://liflg.org/?what=dl&catid=6&gameid=70&filename=ut2003_2225beta3-multilanguage.update.run); found on [liandri.beyondunreal.com](https://liandri.beyondunreal.com/Unreal_Tournament_2003#Essential_Files)
+ * [UT2003 2225.3 for Linux Tar Archive (ut2003_2225beta3-multilanguage.update.tar.xz)](ut2003_2225beta3-multilanguage.update.tar.xz) -- a tar archive containing just the patch files from the official [ut2003_2225beta3-multilanguage.update.run](ut2003_2225beta3-multilanguage.update.run) update. This removes the patch script, simplifying installation of the patch to a tar command.
