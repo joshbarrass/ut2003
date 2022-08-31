@@ -1,0 +1,68 @@
+name: "Unreal Tournament 2003"
+game_slug: "unreal-tournament-2003"
+slug: "unreal-tournament-2003-2225"
+version: "CD + patch v2225"
+runner: "linux"
+require-binaries: padsp, linux32, sed, chmod
+script:
+  game:
+    exe: launch-ut2003.sh
+  files:
+    - patch:
+        url: https://github.com/joshbarrass/ut2003-on-linux/raw/master/archive/ut2003_2225beta3-multilanguage.update.tar.xz
+        filename: ut2003_2225beta3-multilanguage.update.tar.xz
+  installer:
+    - insert-disc:
+        requires: System/UT2003.exe
+    - merge:
+        src: $DISC
+        dst: $GAMEDIR
+    - execute:
+        command: 'find "$GAMEDIR" -type d -print0 | xargs -0 chmod 0775 && find "$GAMEDIR" -type f -print0 | xargs -0 chmod 0664'
+
+    - insert-disc:
+        requires: Textures/UT2003Fonts.utx.uz2
+    - merge:
+        src: $DISC
+        dst: $GAMEDIR
+    - execute:
+        command: 'find "$GAMEDIR" -type d -print0 | xargs -0 chmod 0775 && find "$GAMEDIR" -type f -print0 | xargs -0 chmod 0664'
+
+    - insert-disc:
+        requires: linux_installer.sh
+    - merge:
+        src: $DISC
+        dst: $GAMEDIR
+    - execute:
+        command: 'find "$GAMEDIR" -type d -print0 | xargs -0 chmod 0775 && find "$GAMEDIR" -type f -print0 | xargs -0 chmod 0664'
+
+    - extract:
+        src: patch
+
+    - chmodx: $GAMEDIR/System/ucc-bin
+    - execute:
+        command: 'rm AutoRun.exe AutoRun.inf linux_installer.sh Setup.exe'
+    - execute:
+        command: 'cd "System" && find .. -type f -name "*.uz2" -exec ./ucc-bin decompress "{}" -nohomedir \; -exec rm "{}" \;'
+
+    - chmodx: $GAMEDIR/System/ut2003-bin
+
+    - write_config:
+        file: "$GAMEDIR/System/UT2003.ini"
+        data:
+          Engine.Engine:
+            RenderDevice: OpenGLDrv.OpenGLRenderDevice
+            ViewportManager: SDLDrv.SDLClient
+
+    - execute:
+        command: 'cp "$(which padsp)" "$GAMEDIR/padsp32" && sed -i "s/x86_64-linux-gnu/i386-linux-gnu/g" "$GAMEDIR/padsp32"'
+    - write_file:
+        file: "$GAMEDIR/launch-ut2003.sh"
+        content: "#!/bin/bash\n
+        if [ ! -e \"$GAMEDIR/System/cdkey\" ];\n
+        then\n
+          zenity --icon-name=\"lutris\" --width=\"450\" --height=\"250\" --title=\"Unreal Tournament 2003\" --entry --text \"Please enter your UT2003 CD key\\nYou can change this at a later date by editing $GAMEDIR/System/cdkey\" > \"$GAMEDIR/System/cdkey\"\n
+        fi\n
+        cd \"$GAMEDIR/System\"\n
+        ../padsp32 ./ut2003-bin"
+    - chmodx: $GAMEDIR/launch-ut2003.sh
