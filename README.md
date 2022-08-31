@@ -38,12 +38,22 @@ echo XXXXX-XXXXX-XXXXX-XXXX >> ~/Games/ut2003/System/cdkey
 
 You need to decompress .uz2 files using `ucc`
 ```
-cd ~/Games/ut2003/System; for i in ../**/*.uz2 ; do ./ucc-bin decompress $i ; done
+cd ~/Games/ut2003/System; for i in ../**/*.uz2 ; do ./ucc-bin decompress $i -nohomedir ; done
+```
+or alternatively
+```
+cd ~/Games/ut2003/System && find .. -type f -name "*.uz2" -exec ./ucc-bin decompress "{}" -nohomedir \;
 ```
 
-If you want to save some space, it _should_ be possible to delete these files once you've decompressed them, but I have not personally tested this and can't guarantee there will be no problems.
+Make sure to include `-nohomedir`; without it, the files will be decompressed to `~/.ut2003` by default! This will use up space in your home directory and would prevent other users from playing the game.
+
+If you want to save some space, it is possible to delete these files once you've decompressed them.
 ```
 cd ~/Games/ut2003/System; for i in ../**/*.uz2 ; do rm $i ; done
+```
+or you can combine decompression and deleting into a single command to minimise excess storage usage:
+```
+cd ~/Games/ut2003/System && find .. -type f -name "*.uz2" -exec ./ucc-bin decompress "{}" -nohomedir \; -exec rm "{}" \;
 ```
 
 ## Attempt to Run the Game
