@@ -1,9 +1,11 @@
 name: "Unreal Tournament 2003"
 game_slug: "unreal-tournament-2003"
-slug: "unreal-tournament-2003-2225"
-version: "CD + patch v2225"
+slug: "unreal-tournament-2003-cd-patch-v22253"
+version: "CD + patch v2225.3"
 runner: "linux"
-require-binaries: padsp, linux32, sed, chmod
+description: "Installs retail 3 CD version of the game, updated to version 2225"
+notes: "Game is old and 32-bit, so requires the older 32-bit C++ runtime. On a 32-bit Ubuntu system, this can be installed as:\r\n\r\nsudo apt-get install libstdc++5\r\n\r\nor for a 64-bit system:\r\n\r\nsudo apt-get install libstdc++5:i386\r\n\r\nRequires padsp (on Ubuntu this should be provided by pulseaudio-utils) for sound to function, but the game is 32-bit, so the 32-bit libraries will be needed. You can install these on 64-bit Ubuntu via:\r\n\r\nsudo apt-get install libpulsedsp:i386\r\n\r\nA the padsp script is copied to the install dir as padsp32 and is patched to ensure it loads the 32-bit libraries. \r\n\r\nTo report any issues related to this installer, please leave an issue on the associated GitHub page: https://github.com/joshbarrass/ut2003-on-linux"
+credits: "Original game and updates by Epic Games\r\nLinux patch by The Loki Installers for Linux Gamers Team\r\nOriginal guide to install UT2003 on (modern) Linux by GitHub user jdupouy"
 script:
   game:
     exe: launch-ut2003.sh
