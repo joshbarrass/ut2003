@@ -1,5 +1,9 @@
 # Guide to Install UT2003 on Ubuntu
 
+## Foreword 2023
+
+I have since used this guide to create a [Lutris install script](ut2003.yaml), which has been approved by the moderation team and is now [publicly accessible](https://lutris.net/games/unreal-tournament-2003/)! I would highly recommend using this Lutris script to install the game rather than following these steps manually. Nonetheless, if you still want to go through the process of manually installing the game, these instructions form the basis of that installer and should continue to work.
+
 This guide assumes that you wish to install the game to `~/Games/ut2003`. Modify your commands appropriately if you are installing it elsewhere.
 
 ## Copy the Files from the Installation CDs
