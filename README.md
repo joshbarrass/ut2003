@@ -22,7 +22,7 @@ find ~/Games/ut2003 -type f -print0 | xargs -0 chmod 0664
 
 ## Run Update Script
 
-You will need the UT2003 Patch 2225.3 for Linux (`ut2003_2225beta3-multilanguage.update.run`) for this.
+You will need the UT2003 Patch 2225.3 for Linux (`ut2003_2225beta3-multilanguage.update.run`) for this ([mirror available in this repo](archive/ut2003_2225beta3-multilanguage.update.run).
 
 This update script will update UT2003 and install the launcher and the `ucc` tool required for decompressing the installation CD's acrhives.
 ```
